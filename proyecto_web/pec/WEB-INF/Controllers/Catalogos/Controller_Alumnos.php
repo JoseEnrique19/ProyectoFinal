@@ -1,10 +1,5 @@
 <?php
 
-session_start();
-if (!isset($_SESSION['user']) || $_SESSION['user'] == "") {
-    header("Location: index.php");
-}
-
 include_once("../../Classes/Alumnos.class.php");
 include_once("../../Classes/Catalogo2.class.php");
 
@@ -30,7 +25,7 @@ if (isset($_POST['id']) && isset($_POST['erase'])) {/* Para eliminar el registro
     $obj->setAMaterno($catalogo->satinizar_input($parametros['aMaterno']));
     $obj->setAPaterno($catalogo->satinizar_input($parametros['aPaterno']));
     $obj->setGrupo($catalogo->satinizar_input($parametros['grupo']));
-    $obj->setGeneracion($catalogo->satinizar_input($parametros['generacion']));
+    $obj->setPeriodo($catalogo->satinizar_input($parametros['periodo']));
     if (isset($parametros['activo']) && $parametros['activo'] == "on") {
         $obj->setActivo(1);
     } else {
