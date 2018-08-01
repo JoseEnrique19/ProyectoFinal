@@ -10,7 +10,7 @@ class Alumnos {
     private $APaterno;
     private $AMaterno;
     private $Grupo;
-    private $Generacion;
+    private $Periodo;
     private $Activo;
     private $nombreId = "IdAlumno";
     private $tabla = "alumnos";
@@ -18,9 +18,6 @@ class Alumnos {
     public function getRegistroById($id) {
         $consulta = ("SELECT * FROM $this->tabla WHERE $this->nombreId ='" . $id . "'");
         $catalogo = new Catalogo2();
-        if (isset($this->empresa)) {
-            $catalogo->setEmpresa($this->empresa);
-        }
         $query = $catalogo->obtenerLista($consulta);
         if ($rs = mysql_fetch_array($query)) {
             $this->IdAlumno = $rs['IdAlumno'];
@@ -29,7 +26,7 @@ class Alumnos {
             $this->APaterno = $rs['APaterno'];
             $this->AMaterno = $rs['AMaterno'];
             $this->Grupo = $rs['Grupo'];
-            $this->Generacion = $rs['Generacion'];
+            $this->Periodo = $rs['Periodo'];
             $this->Activo = $rs['Activo'];
         }
         return $query;
@@ -43,8 +40,8 @@ class Alumnos {
             $this->AMaterno = "NULL";
         }
         
-        $consulta = ("INSERT INTO $this->tabla(IdAlumno,Matricula,Nombre,APaterno,AMaterno,Grupo,Generacion,Activo)
-            VALUES(0,$this->Matricula,'$this->Nombre','$this->APaterno',$this->AMaterno,'$this->Grupo','$this->Generacion',$this->Activo)");
+        $consulta = ("INSERT INTO $this->tabla(IdAlumno,Matricula,Nombre,APaterno,AMaterno,Grupo,Periodo,Activo)
+            VALUES(0,$this->Matricula,'$this->Nombre','$this->APaterno',$this->AMaterno,'$this->Grupo','$this->Periodo',$this->Activo)");
         //echo $consulta;
         $catalogo = new Catalogo2();
         $this->IdAlumno = $catalogo->insertarRegistro($consulta);
@@ -62,7 +59,7 @@ class Alumnos {
         }
         $where = "$this->nombreId =" . $this->IdAlumno;
         $consulta = ("UPDATE $this->tabla SET Nombre = '$this->Nombre',	APaterno = '$this->APaterno',AMaterno = $this->AMaterno,
-            Grupo = '$this->Grupo',Generacion = '$this->Generacion',Activo = $this->Activo
+            Grupo = '$this->Grupo',Periodo = '$this->Periodo',Activo = $this->Activo
             WHERE $where;");
         $catalogo = new Catalogo2();
         $query = $catalogo->ejecutaConsultaActualizacion($consulta, $this->tabla, $where);
@@ -108,32 +105,12 @@ class Alumnos {
         return $this->Grupo;
     }
 
-    function getGeneracion() {
-        return $this->Generacion;
+    function getPeriodo() {
+        return $this->Periodo;
     }
 
     function getActivo() {
         return $this->Activo;
-    }
-
-    function getUsuarioCreacion() {
-        return $this->UsuarioCreacion;
-    }
-
-    function getFechaCreacion() {
-        return $this->FechaCreacion;
-    }
-
-    function getUsuarioUltimaModificacion() {
-        return $this->UsuarioUltimaModificacion;
-    }
-
-    function getFechaUltimaModificacion() {
-        return $this->FechaUltimaModificacion;
-    }
-
-    function getPantalla() {
-        return $this->Pantalla;
     }
 
     function setIdAlumno($IdAlumno) {
@@ -160,39 +137,13 @@ class Alumnos {
         $this->Grupo = $Grupo;
     }
 
-    function setGeneracion($Generacion) {
-        $this->Generacion = $Generacion;
+    function setPeriodo($Periodo) {
+        $this->Periodo = $Periodo;
     }
 
     function setActivo($Activo) {
         $this->Activo = $Activo;
     }
 
-    function setUsuarioCreacion($UsuarioCreacion) {
-        $this->UsuarioCreacion = $UsuarioCreacion;
-    }
-
-    function setFechaCreacion($FechaCreacion) {
-        $this->FechaCreacion = $FechaCreacion;
-    }
-
-    function setUsuarioUltimaModificacion($UsuarioUltimaModificacion) {
-        $this->UsuarioUltimaModificacion = $UsuarioUltimaModificacion;
-    }
-
-    function setFechaUltimaModificacion($FechaUltimaModificacion) {
-        $this->FechaUltimaModificacion = $FechaUltimaModificacion;
-    }
-
-    function setPantalla($Pantalla) {
-        $this->Pantalla = $Pantalla;
-    }
-    
-    function getIdNivelUsuario() {
-        return $this->IdNivelUsuario;
-    }
-
-    function setIdNivelUsuario($IdNivelUsuario) {
-        $this->IdNivelUsuario = $IdNivelUsuario;
-    }    
 }
+
